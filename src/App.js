@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, Select, MenuItem, Card, CardContent } from '@material-ui/core';
 import './App.css';
+import 'leaflet/dist/leaflet.css';
 import { sortObjectData } from './util';
 import Infobox from './components/Infobox';
-import Map from './components/Map';
+import TrackerMap from './components/TrackerMap';
 import Table from './components/Table';
 import LineChart from './components/LineChart';
 
@@ -13,6 +14,9 @@ function App() {
   const [country, setCountry] = useState('worldwide')
   const [countryInfo, setCountryInfo] = useState({})
   const [tableData, setTableData] = useState([])
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([])
 
   useEffect(() => {
 
@@ -26,6 +30,7 @@ function App() {
           }));
           setCountries(countries);
           setTableData(sortObjectData(data, 'cases'))
+          setMapCountries(data)
         })
     }
 
@@ -41,7 +46,7 @@ function App() {
 
   const onCountryChange = async (e) => {
     const countryCode = e.target.value
-    setCountry(countryCode)
+    
 
     const url = countryCode === 'worldwide' 
     ? `https://disease.sh/v3/covid-19/all`
@@ -50,10 +55,14 @@ function App() {
     await fetch(url)
           .then(res => res.json())
           .then(data => {
+            console.log('meme')
+            setCountry(countryCode)
             setCountryInfo(data);
-            console.log(data);
+            setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+            setMapZoom(4);
           })
   }
+
 
   return (
     <div className="app">
@@ -86,13 +95,13 @@ function App() {
           <Infobox title="Death Cases" cases={countryInfo.todayDeaths} total={countryInfo.deaths}  />
         </div>
 
-        <Map />
+        <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={'cases'} />
       </div>
       <Card className="app__sidebar">
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} casesType="cases"/>
-          <h3>Worldwide new cases</h3>
+          <h3 className="app__secondHeader">Worldwide new cases</h3>
           <LineChart casesType="cases"/>
         </CardContent>
       </Card>
