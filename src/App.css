@@ -10,11 +10,10 @@ body {
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
-
 }
 
 .app__main {
-  flex: 0.9;
+  flex: 0.8;
 }
 
 .app__header {
