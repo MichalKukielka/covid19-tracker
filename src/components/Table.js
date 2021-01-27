@@ -1,4 +1,5 @@
 import React from 'react';
+import { prettyPrintData } from '../util';
 import './styles/Table.css';
 
 function Table({ countries, casesType }) {
@@ -7,7 +8,7 @@ function Table({ countries, casesType }) {
             {countries.map((country) => (
                 <tr>
                     <td>{country.country}</td>
-                    <td><strong>{country[casesType]}</strong></td>
+                    <td><strong>{prettyPrintData(country[casesType])}</strong></td>
                 </tr>
             ))}
         </div>

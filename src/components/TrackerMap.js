@@ -3,36 +3,44 @@ import { MapContainer, TileLayer, Circle, Popup, useMap } from 'react-leaflet';
 import numeral from 'numeral';
 import './styles/TrackerMap.css';
 
+
 const casesTypeColors = {
     cases: {
-        hex: "#CC1034",
-        rgb: "rgb(204, 16, 52)",
-        multiplier: 25000,
+      hex: "#E984A2",
+      rgb: "rgb(233, 132, 162)",
+      half_op: "rgba(233, 132, 162, 0.5)",
+      multiplier: 200,
     },
     recovered: {
-        hex: "#7dd71d",
-        rgb: "rgb(125, 215, 29)",
-        multiplier: 35000,
+      hex: "#B9CC95",
+      rgb: "rgb(185, 204, 149)",
+      half_op: "rgba(185, 204, 149, 0.5)",
+      multiplier: 300,
     },
     deaths: {
-        hex: "#fb4443",
-        rgb: "rgb(251, 68, 67)",
-        multiplier: 1200000,
+      hex: "#A2DCEE",
+      rgb: "rgb(162, 220, 238)",
+      half_op: "rgba(162, 220, 238, 0.5)",
+      multiplier: 1000,
     },
-};
+  };
 
 
-export const showDataOnMap = (data, caseType = 'cases') => 
-    data.map(country => (
-        <Circle
-            center={[country.countryInfo.lat, country.countryInfo.long]}
-            fillOpacity={0.4}
-            color={casesTypeColors[caseType].hex}
-            fillColor={casesTypeColors[caseType].hex}
-            radius = {
-                Math.sqrt(country[caseType] * casesTypeColors[caseType].multiplier)
-            }
-        >
+export const showDataOnMap = (data, casesType) => 
+{    
+    
+    console.log(casesType, casesTypeColors[casesType].hex);
+    
+    return data.map(country => (
+            <Circle
+                center={[country.countryInfo.lat, country.countryInfo.long]}
+                color={casesTypeColors[casesType].hex}
+                fillColor={casesTypeColors[casesType].hex}
+                fillOpacity={0.4}
+                radius={
+                Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
+                }
+            >
             <Popup>
                <div className="popup__container">
                    <div className="popup__flag" style={{backgroundImage: `url(${country.countryInfo.flag})`}}>
@@ -55,7 +63,7 @@ export const showDataOnMap = (data, caseType = 'cases') =>
             </Popup>
         </Circle>
     ))
-
+}
 function ChangeView({ center, zoom }) {
     const map = useMap();
     map.setView(center, zoom);
@@ -63,7 +71,6 @@ function ChangeView({ center, zoom }) {
 }   
 
 function TrackerMap({ countries, casesType, center, zoom}) {
-    console.log(center, zoom)
     return (
         <div className="app__map">
             <MapContainer center={center} zoom={zoom}>

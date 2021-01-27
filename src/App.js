@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControl, Select, MenuItem, Card, CardContent } from '@material-ui/core';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
-import { sortObjectData } from './util';
+import { sortObjectData, prettyPrintData } from './util';
 import Infobox from './components/Infobox';
 import TrackerMap from './components/TrackerMap';
 import Table from './components/Table';
@@ -17,6 +17,8 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([])
+  const [casesType, setCasesType] = useState('cases')
+
 
   useEffect(() => {
 
@@ -55,20 +57,18 @@ function App() {
     await fetch(url)
           .then(res => res.json())
           .then(data => {
-            console.log('meme')
             setCountry(countryCode)
             setCountryInfo(data);
             setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
             setMapZoom(4);
           })
   }
-
-
+  
   return (
     <div className="app">
       <div className="app__main">
         <div className="app__header">
-          <h1>Cobvid19-Tracker</h1>
+          <h1>Covid19-Tracker</h1>
           <FormControl>
             <Select
               variant="outlined"
@@ -90,19 +90,37 @@ function App() {
         </div>
 
         <div className="app__stats">
-          <Infobox title="Coronavirus Cases" cases={countryInfo.todayCases} total={countryInfo.cases} />
-          <Infobox title="Recoverd Cases" cases={countryInfo.todayRecovered} total={countryInfo.recovered} />
-          <Infobox title="Death Cases" cases={countryInfo.todayDeaths} total={countryInfo.deaths}  />
+          <Infobox 
+            title="Coronavirus Cases" 
+            cases={prettyPrintData(countryInfo.todayCases)} 
+            total={prettyPrintData(countryInfo.cases)} 
+            onClick={(e) => setCasesType("cases")}
+            active={casesType==='cases'}
+          />
+          <Infobox 
+            title="Recoverd Cases" 
+            cases={prettyPrintData(countryInfo.todayRecovered)} 
+            total={prettyPrintData(countryInfo.recovered)} 
+            onClick={(e) => setCasesType("recovered")}
+            active={casesType==='recovered'} 
+          />
+          <Infobox 
+            title="Death Cases" 
+            cases={prettyPrintData(countryInfo.todayDeaths)} 
+            total={prettyPrintData(countryInfo.deaths)} 
+            onClick={(e) => setCasesType("deaths")}
+            active={casesType==='deaths'}
+          />
         </div>
 
-        <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={'cases'} />
+        <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
       </div>
       <Card className="app__sidebar">
         <CardContent>
           <h3>Live Cases by Country</h3>
-          <Table countries={tableData} casesType="cases"/>
-          <h3 className="app__secondHeader">Worldwide new cases</h3>
-          <LineChart casesType="cases"/>
+          <Table countries={tableData} casesType={casesType}/>
+              <h3 className="app__secondHeader">Worldwide new {casesType}</h3>
+          <LineChart casesType={casesType} />
         </CardContent>
       </Card>
     </div>
