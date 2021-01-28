@@ -21,6 +21,8 @@ body {
   align-items: center;
   margin-bottom: 20px;
   justify-content: space-between;
+  align-items: stretch;
+  min-width: 500px;
 }
 
 .app__stats {
@@ -29,6 +31,11 @@ body {
 }
 
 
+
+.app__dropdown { 
+
+  background-color: white;
+}
 
 .app__secondHeader {
   margin: 20px 0px;
@@ -42,5 +49,11 @@ body {
 
   .app__sidebar {
     margin-top: 20px;
+  }
+}
+
+@media (max-width: 425px) {
+  .app__stats {
+    flex-direction: column;
   }
 }

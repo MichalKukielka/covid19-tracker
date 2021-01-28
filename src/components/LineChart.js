@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ThemeContext } from '../context/ThemeContext'
 import './styles/LineChart.css';
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
@@ -88,6 +89,10 @@ const buildChartData = (data, casesType) => {
 
 function LineGraph({ casesType }) {
   const [data, setData] = useState({});
+
+  const theme = useContext(ThemeContext);
+  console.log('Chart Context', theme);
+
 
   useEffect(() => {
     const fetchData = async () => {

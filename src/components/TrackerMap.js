@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
 import { MapContainer, TileLayer, Circle, Popup, useMap } from 'react-leaflet';
 import numeral from 'numeral';
 import './styles/TrackerMap.css';
+
 
 
 const casesTypeColors = {
@@ -27,18 +29,13 @@ const casesTypeColors = {
 
 
 export const showDataOnMap = (data, casesType) => 
-{    
-    
-    console.log(casesType, casesTypeColors[casesType].hex);
-    
-    return data.map(country => (
+    data.map(country => (
             <Circle
                 pathOptions={{
                     color: casesTypeColors[casesType].hex,
                     fillColor: casesTypeColors[casesType].hex,
                 }}
                 center={[country.countryInfo.lat, country.countryInfo.long]}
-
                 fillOpacity={0.4}
                 radius={
                 Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
@@ -66,7 +63,7 @@ export const showDataOnMap = (data, casesType) =>
             </Popup>
         </Circle>
     ))
-}
+
 function ChangeView({ center, zoom }) {
     const map = useMap();
     map.setView(center, zoom);
@@ -74,6 +71,10 @@ function ChangeView({ center, zoom }) {
 }   
 
 function TrackerMap({ countries, casesType, center, zoom}) {
+
+    const theme = useContext(ThemeContext);
+    console.log('TackerMap Context', theme);
+
     return (
         <div className="app__map">
             <MapContainer center={center} zoom={zoom}>
