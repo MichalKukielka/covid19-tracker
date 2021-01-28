@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext'
+import { ThemeContext } from '../../context/ThemeContext'
 import { Card, CardContent, Typography } from '@material-ui/core';
-import './styles/Infobox.css';
+import '../styles/Infobox.css';
 
 function Infobox({title, cases, total, active, type, ...props}) {
 
