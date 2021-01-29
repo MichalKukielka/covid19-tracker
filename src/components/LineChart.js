@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { ThemeContext } from '../context/ThemeContext'
-import './styles/LineChart.css';
+import { ChartWrapper, ChardTitle } from './styled/LineChart';
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 
@@ -24,7 +24,6 @@ const casesTypeColors = {
     multiplier: 1000,
   },
 };
-
 
 const options = {
   legend: {
@@ -50,7 +49,7 @@ const options = {
       {
         type: "time",
         time: {
-          format: "MM/DD/YY",
+          parser: "MM/DD/YY",
           tooltipFormat: "ll",
         },
       },
@@ -61,7 +60,6 @@ const options = {
           display: false,
         },
         ticks: {
-          // Include a dollar sign in the ticks
           callback: function (value, index, values) {
             return numeral(value).format("0a");
           },
@@ -110,22 +108,25 @@ function LineGraph({ casesType }) {
   }, [casesType]);
 
   return (
-    <div className="app__linechart">
-      {data?.length > 0 && (
-        <Line
-          data={{
-            datasets: [
-              {
-                backgroundColor: casesTypeColors[casesType].half_op,
-                borderColor: casesTypeColors[casesType].hex,
-                data: data,
-              },
-            ],
-          }}
-          options={options}
-        />
-      )}
-    </div>
+    <Fragment>
+      <ChardTitle>Worldwide new {casesType}</ChardTitle>
+      <ChartWrapper>
+        {data?.length > 0 && (
+          <Line
+            data={{
+              datasets: [
+                {
+                  backgroundColor: casesTypeColors[casesType].half_op,
+                  borderColor: casesTypeColors[casesType].hex,
+                  data: data,
+                },
+              ],
+            }}
+            options={options}
+          />
+        )}
+      </ChartWrapper>
+    </Fragment>
   );
 }
 

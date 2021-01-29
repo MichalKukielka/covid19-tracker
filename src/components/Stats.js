@@ -2,16 +2,15 @@ import React, {useContext} from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import Infobox from './atoms/Infobox';
 import { prettyPrintData } from '../utils/utils';
+import { StatsWrapper } from './styled/Stats';
 
-import './styles/App.css';
 
 function Stats({countryInfo, casesType, setCasesType}) {
 
     const theme = useContext(ThemeContext);
-    console.log('Stats Context', theme);
 
     return (
-        <div className="app__stats">
+        <StatsWrapper>
             <Infobox
                 title="Coronavirus Cases"
                 type={"cases"}
@@ -36,8 +35,7 @@ function Stats({countryInfo, casesType, setCasesType}) {
                 onClick={(e) => setCasesType("deaths")}
                 active={casesType === 'deaths'}
             />
-        </div>
-
+        </StatsWrapper>
     )
 }
 

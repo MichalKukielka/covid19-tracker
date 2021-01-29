@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeContext } from '../context/ThemeContext'
-import { Card, CardContent } from '@material-ui/core';
-import './styles/App.css';
+import { CardContent } from '@material-ui/core';
+import { AppContainer, AppWrapper, MainWrapper, SideWrapper } from './styled/App';
 import 'leaflet/dist/leaflet.css';
 import { sortObjectData } from '../utils/utils';
 
@@ -72,21 +72,22 @@ function App() {
 
   return (
     <ThemeContext.Provider value={darkMode}>
-      <div className="app">
-        <div className="app__main">
-          <Header countries={countries} onCountryChange={onCountryChange} country={country} darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Stats countryInfo={countryInfo} casesType={casesType} setCasesType={setCasesType} />
-          <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
-        </div>
-        <Card className="app__sidebar">
-          <CardContent>
-            <h3>Live Cases by Country</h3>
-            <Table countries={tableData} casesType={casesType} />
-            <h3 className="app__secondHeader">Worldwide new {casesType}</h3>
-            <LineChart casesType={casesType} />
-          </CardContent>
-        </Card>
-      </div>
+      <AppContainer>
+        <AppWrapper>
+          <MainWrapper>
+            <Header countries={countries} onCountryChange={onCountryChange} country={country} darkMode={darkMode} setDarkMode={setDarkMode} />
+            <Stats countryInfo={countryInfo} casesType={casesType} setCasesType={setCasesType} />
+            <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
+          </MainWrapper>
+          <SideWrapper>
+            <CardContent>
+              <h3>Live Cases by Country</h3>
+              <Table countries={tableData} casesType={casesType} />
+              <LineChart casesType={casesType} />
+            </CardContent>
+          </SideWrapper>
+        </AppWrapper>
+      </AppContainer>
     </ThemeContext.Provider>
   );
 }

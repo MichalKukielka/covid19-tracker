@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { MapContainer, TileLayer, Circle, Popup, useMap } from 'react-leaflet';
 import numeral from 'numeral';
-import './styles/TrackerMap.css';
 
-
+import { MapWrapper, PopupFlag, PopupName, PopupCases, PopupRecovered, PopupDeaths } from './styled/TrackerMap';
 
 const casesTypeColors = {
     cases: {
@@ -31,6 +30,7 @@ const casesTypeColors = {
 export const showDataOnMap = (data, casesType) => 
     data.map(country => (
             <Circle
+                key={country.country}
                 pathOptions={{
                     color: casesTypeColors[casesType].hex,
                     fillColor: casesTypeColors[casesType].hex,
@@ -42,24 +42,19 @@ export const showDataOnMap = (data, casesType) =>
                 }
             >
             <Popup>
-               <div className="popup__container">
-                   <div className="popup__flag" style={{backgroundImage: `url(${country.countryInfo.flag})`}}>
-
-                   </div>
-                   <div className="popup__name">
-                        {country.country}
-                   </div>                   
-                   <div className="popup__cases">
-                        Cases: {numeral(country.cases).format("0,0")}
-                   </div>
-                   <div className="popup__recovered">
-                        Recovered: {numeral(country.recovered).format("0,0")}
-                   </div>
-                   <div className="popup__deaths">
-                        Deaths: {numeral(country.deaths).format("0,0")}
-                   </div>
-
-               </div>
+                <PopupFlag style={{backgroundImage: `url(${country.countryInfo.flag})`}} />
+                <PopupName>
+                    {country.country}
+                </PopupName>                   
+                <PopupCases>
+                    Cases: {numeral(country.cases).format("0,0")}
+                </PopupCases>
+                <PopupRecovered>
+                    Recovered: {numeral(country.recovered).format("0,0")}
+                </PopupRecovered>
+                <PopupDeaths>
+                    Deaths: {numeral(country.deaths).format("0,0")}
+                </PopupDeaths>
             </Popup>
         </Circle>
     ))
@@ -73,10 +68,9 @@ function ChangeView({ center, zoom }) {
 function TrackerMap({ countries, casesType, center, zoom}) {
 
     const theme = useContext(ThemeContext);
-    console.log('TackerMap Context', theme);
 
     return (
-        <div className="app__map">
+        <MapWrapper>
             <MapContainer center={center} zoom={zoom}>
                 <ChangeView center={center} zoom={zoom} /> 
                 <TileLayer 
@@ -85,7 +79,7 @@ function TrackerMap({ countries, casesType, center, zoom}) {
                 />
                 {showDataOnMap(countries, casesType)}
             </MapContainer>
-        </div>
+        </MapWrapper>
     )
 }
 

@@ -1,22 +1,21 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext'
 import { prettyPrintData } from '../utils/utils';
-import './styles/Table.css';
+import { TableWrapper, TableRow, TableCell } from './styled/Table';
 
 function Table({ countries, casesType }) {
 
     const theme = useContext(ThemeContext);
-    console.log('TackerMap Context', theme);
 
     return (
-        <div className="table">
+        <TableWrapper>
             {countries.map((country) => (
-                <tr>
-                    <td>{country.country}</td>
-                    <td><strong>{prettyPrintData(country[casesType])}</strong></td>
-                </tr>
+                <TableRow key={country.country}>
+                    <TableCell>{country.country}</TableCell>
+                    <TableCell><strong>{prettyPrintData(country[casesType])}</strong></TableCell>
+                </TableRow>
             ))}
-        </div>
+        </TableWrapper>
     )
 }
 
