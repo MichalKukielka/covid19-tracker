@@ -24,7 +24,7 @@ export const ControlsWrapper = styled.div`
 `;
 
 export const AppTitle = styled.h1`
-
+    color: ${props => props.currentTheme.defaultTextColor};
 `;
 
 export const SelectWrapper = styled.div`

@@ -67,10 +67,10 @@ function ChangeView({ center, zoom }) {
 
 function TrackerMap({ countries, casesType, center, zoom}) {
 
-    const theme = useContext(ThemeContext);
+    const currentTheme = useContext(ThemeContext);
 
     return (
-        <MapWrapper>
+        <MapWrapper currentTheme={currentTheme}>
             <MapContainer center={center} zoom={zoom}>
                 <ChangeView center={center} zoom={zoom} /> 
                 <TileLayer 

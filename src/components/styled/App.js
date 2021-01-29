@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Card } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 
 export const AppContainer = styled.div`
-    background-color: #f5fbfa;
+    background-color: ${props => props.currentTheme.bodyBackgroundColor};
     height: 100vh;
 `;
 
@@ -21,8 +21,17 @@ export const MainWrapper = styled.div`
 `;
 
 export const SideWrapper = styled(Card)`
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+
     @media (max-width: 990px) {
         margin-top: 20px;
     }
 `;
 
+export const SideContent = styled(CardContent)`
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+`;
+
+export const ChardTitle = styled.h3`
+    margin: 20px 0px;
+`;

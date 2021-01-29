@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeContext } from '../context/ThemeContext'
-import { CardContent } from '@material-ui/core';
-import { AppContainer, AppWrapper, MainWrapper, SideWrapper } from './styled/App';
-import 'leaflet/dist/leaflet.css';
+import { AppContainer, AppWrapper, MainWrapper, SideWrapper, SideContent } from './styled/App';
 import { sortObjectData } from '../utils/utils';
+import { theme } from '../utils/theme';
+import 'leaflet/dist/leaflet.css';
+
 
 import Header from './Header';
 import Stats from './Stats';
@@ -14,6 +15,7 @@ import LineChart from './LineChart';
 function App() {
 
   const [darkMode, setDarkMode] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState({})
   const [countries, setCountries] = useState(['USA', 'Japanese', 'Poland']);
   const [country, setCountry] = useState('worldwide');
   const [countryInfo, setCountryInfo] = useState({});
@@ -23,7 +25,10 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState('cases');
 
-
+  useEffect(() => {   
+    setCurrentTheme(darkMode ? theme.darkTheme : theme.lightTheme)
+  }, [darkMode])
+  
   useEffect(() => {
 
     const getCountriesData = async () => {
@@ -68,23 +73,22 @@ function App() {
       })
   }
 
-  // W PLIKU APP O TEAMCIE DECYDUJE STATE
 
   return (
-    <ThemeContext.Provider value={darkMode}>
-      <AppContainer>
+    <ThemeContext.Provider value={currentTheme}>
+      <AppContainer currentTheme={currentTheme}>
         <AppWrapper>
           <MainWrapper>
             <Header countries={countries} onCountryChange={onCountryChange} country={country} darkMode={darkMode} setDarkMode={setDarkMode} />
             <Stats countryInfo={countryInfo} casesType={casesType} setCasesType={setCasesType} />
             <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
           </MainWrapper>
-          <SideWrapper>
-            <CardContent>
+          <SideWrapper currentTheme={currentTheme}>
+            <SideContent currentTheme={currentTheme}>
               <h3>Live Cases by Country</h3>
               <Table countries={tableData} casesType={casesType} />
               <LineChart casesType={casesType} />
-            </CardContent>
+            </SideContent>
           </SideWrapper>
         </AppWrapper>
       </AppContainer>

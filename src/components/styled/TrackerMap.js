@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MapWrapper = styled.div`
     margin-top: 20px;
     height: 72vh;
-    background-color: white;
+    background-color: ${props => props.currentTheme.elementBackgroundColor};
     border-radius: 5px;
     box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.3);
     padding: 1rem;

@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import { Card, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography } from '@material-ui/core';
 
 export const StyledInfobox = styled(Card)`
     flex: 1;
     cursor: pointer;
+
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+
 
     ${(props) => props.active && props.type === 'cases' && `
         border-top: 5px solid #cc1034;
@@ -28,6 +31,12 @@ export const StyledInfobox = styled(Card)`
             margin-bottom: 15px;
         }
     }
+`;
+
+export const InfoboxContent = styled(CardContent)`
+
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+
 `;
 
 export const Title = styled(Typography)`
