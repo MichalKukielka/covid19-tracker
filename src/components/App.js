@@ -77,15 +77,14 @@ function App() {
   return (
     <ThemeContext.Provider value={currentTheme}>
       <AppContainer currentTheme={currentTheme}>
-        <AppWrapper>
+        <AppWrapper currentTheme={currentTheme}>
           <MainWrapper>
             <Header countries={countries} onCountryChange={onCountryChange} country={country} darkMode={darkMode} setDarkMode={setDarkMode} />
             <Stats countryInfo={countryInfo} casesType={casesType} setCasesType={setCasesType} />
-            <TrackerMap countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
+            <TrackerMap darkMode={darkMode} countries={mapCountries} center={mapCenter} zoom={mapZoom} casesType={casesType} />
           </MainWrapper>
           <SideWrapper currentTheme={currentTheme}>
             <SideContent currentTheme={currentTheme}>
-              <h3>Live Cases by Country</h3>
               <Table countries={tableData} casesType={casesType} />
               <LineChart casesType={casesType} />
             </SideContent>

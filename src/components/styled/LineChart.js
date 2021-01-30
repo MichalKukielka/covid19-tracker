@@ -6,5 +6,6 @@ export const ChartWrapper = styled.div`
 
 export const ChardTitle = styled.h3`
     margin: 20px 0px;
+    color: ${props => props.currentTheme.primaryTextColor};
 `;
 

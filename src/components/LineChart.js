@@ -88,9 +88,7 @@ const buildChartData = (data, casesType) => {
 function LineGraph({ casesType }) {
   const [data, setData] = useState({});
 
-  const theme = useContext(ThemeContext);
-  console.log('Chart Context', theme);
-
+  const currentTheme = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +107,7 @@ function LineGraph({ casesType }) {
 
   return (
     <Fragment>
-      <ChardTitle>Worldwide new {casesType}</ChardTitle>
+      <ChardTitle currentTheme={currentTheme}>Worldwide new {casesType}</ChardTitle>
       <ChartWrapper>
         {data?.length > 0 && (
           <Line

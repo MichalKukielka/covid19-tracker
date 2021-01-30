@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-import { MapContainer, TileLayer, Circle, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Circle, Popup, useMap, MapConsumer } from 'react-leaflet';
 import numeral from 'numeral';
 
 import { MapWrapper, PopupFlag, PopupName, PopupCases, PopupRecovered, PopupDeaths } from './styled/TrackerMap';
@@ -65,17 +65,18 @@ function ChangeView({ center, zoom }) {
     return null;
 }   
 
-function TrackerMap({ countries, casesType, center, zoom}) {
+function TrackerMap({ darkMode, countries, casesType, center, zoom}) {
 
     const currentTheme = useContext(ThemeContext);
+    const mapTheme = darkMode ? `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png` : `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`;
 
     return (
         <MapWrapper currentTheme={currentTheme}>
             <MapContainer center={center} zoom={zoom}>
-                <ChangeView center={center} zoom={zoom} /> 
+                <ChangeView center={center} zoom={zoom} />  
+
                 <TileLayer 
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url={mapTheme}
                 />
                 {showDataOnMap(countries, casesType)}
             </MapContainer>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { TABLET_BREAKPOINT_MAX } from '../../utils/theme'
 
 export const MapWrapper = styled.div`
     margin-top: 20px;
@@ -13,7 +14,7 @@ export const MapWrapper = styled.div`
         border-radius: 5px;
     }
 
-    @media (max-width: 990px) {
+    @media (max-width: ${TABLET_BREAKPOINT_MAX}px) {
         height: 40vh;
     }
 `;

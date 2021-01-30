@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import { Card, CardContent, Typography } from '@material-ui/core';
+import { PHONE_BREAKPOINT_MAX, TABLET_BREAKPOINT_MIN } from '../../../utils/theme'
 
 export const StyledInfobox = styled(Card)`
     flex: 1;
     cursor: pointer;
+    box-sizing: border-box;
 
     background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
-
+    
+    ${(props) => !props.active && `
+        border-top: 5px solid rgba(0,0,0,0);
+    `}
 
     ${(props) => props.active && props.type === 'cases' && `
         border-top: 5px solid #cc1034;
@@ -20,13 +25,13 @@ export const StyledInfobox = styled(Card)`
         border-top: 5px solid #A2DCEE;
     `}
 
-    @media (min-width: 426px) {
+    @media (min-width: ${TABLET_BREAKPOINT_MIN}px) {
         :not(:last-child) {
             margin-right: 15px;
         }
     }
     
-    @media (max-width: 425px) {
+    @media (max-width: ${PHONE_BREAKPOINT_MAX}px) {
         :not(:last-child) {
             margin-bottom: 15px;
         }
@@ -40,10 +45,14 @@ export const InfoboxContent = styled(CardContent)`
 `;
 
 export const Title = styled(Typography)`
-    color: #6c757d;
+    color: ${props => props.currentTheme.primaryTextColor}AA !important;
     font-weight: 700 !important;
     font-size: 1.5rem !important;
     margin-top: 5px !important;
+`;
+
+export const Total = styled(Typography)`
+    color: ${props => props.currentTheme.primaryTextColor}AA !important;
 `;
 
 export const AmountHeader = styled.h2`

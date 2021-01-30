@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext'
-import { CardContent, Typography } from '@material-ui/core';
-import { StyledInfobox, Title, AmountHeader, InfoboxContent } from './styled/Infobox';
+import { Typography } from '@material-ui/core';
+import { StyledInfobox, Title, Total, AmountHeader, InfoboxContent } from './styled/Infobox';
 
 function Infobox({title, cases, total, active, type, ...props}) {
 
@@ -10,13 +10,13 @@ function Infobox({title, cases, total, active, type, ...props}) {
     return (
         <StyledInfobox currentTheme={currentTheme} active={active} type={type} onClick={props.onClick}>
             <InfoboxContent currentTheme={currentTheme}>
-                <Title color='textSecondary'>
+                <Title currentTheme={currentTheme}>
                     {title}
                 </Title>
                 <AmountHeader active={active} type={type} >{cases}</AmountHeader>
-                <Typography color='textSecondary'>
+                <Total currentTheme={currentTheme}>
                     {total} Total
-                </Typography>
+                </Total>
             </InfoboxContent>
         </StyledInfobox>
     )

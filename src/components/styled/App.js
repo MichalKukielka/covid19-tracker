@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { Card, CardContent } from '@material-ui/core';
+import { TABLET_BREAKPOINT_MAX } from '../../utils/theme'
+
 
 export const AppContainer = styled.div`
     background-color: ${props => props.currentTheme.bodyBackgroundColor};
     height: 100vh;
 `;
 
-export const AppWrapper = styled.div` 
+export const AppWrapper = styled.div`
+    background-color: ${props => props.currentTheme.bodyBackgroundColor};
     display: flex;
     justify-content: space-evenly;
     padding: 20px;
@@ -23,7 +26,7 @@ export const MainWrapper = styled.div`
 export const SideWrapper = styled(Card)`
     background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
 
-    @media (max-width: 990px) {
+    @media (max-width: ${TABLET_BREAKPOINT_MAX}px) {
         margin-top: 20px;
     }
 `;

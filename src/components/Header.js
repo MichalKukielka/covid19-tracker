@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { MenuItem } from '@material-ui/core';
 import { ThemeSwitch } from './atoms/ThemeSwitch.js'
-import { HeaderWrapper, AppTitle, SelectWrapper, ThemeSwitchWrapper, StyledSelect, ControlsWrapper } from './styled/Header';
-
-
+import { HeaderWrapper, AppTitle, SelectWrapper, ThemeSwitchWrapper, StyledSelect, ControlsWrapper, StyledIcon } from './styled/Header';
+import { faMoon } from '@fortawesome/free-solid-svg-icons'
 
 function Header({ countries, onCountryChange, country, darkMode, setDarkMode }) {
 
@@ -20,6 +19,7 @@ function Header({ countries, onCountryChange, country, darkMode, setDarkMode }) 
                         variant="outlined"
                         value={country}
                         onChange={onCountryChange}
+                        darkMode={darkMode}
                     >
                         <MenuItem key="worldwide" value="worldwide">
                             Worldwide
@@ -37,6 +37,7 @@ function Header({ countries, onCountryChange, country, darkMode, setDarkMode }) 
                         checked={darkMode}
                         onChange={() => setDarkMode(prevState => !prevState)}
                     />
+                    <StyledIcon icon={faMoon} color={darkMode ? `#fabd2f` : `#A5A5A5`} />
                 </ThemeSwitchWrapper>
             </ControlsWrapper>
         </HeaderWrapper>
