@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Popup } from 'react-leaflet';
+
 import { TABLET_BREAKPOINT_MAX } from '../../utils/theme'
 
 export const MapWrapper = styled.div`
@@ -24,8 +26,6 @@ export const PopupFlag = styled.div`
     width: 100%;
     background-size: cover;
     border-radius: 5px;
-    }
-
     img {
         width: 100px;
         border-radius: 5px;
@@ -59,3 +59,6 @@ export const PopupDeaths = styled.div`
     padding: 0.15rem;
 `;
 
+export const StyledPopup = styled(Popup)`
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+`;
