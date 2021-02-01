@@ -7,7 +7,7 @@ import numeral from 'numeral';
 
 import { MapWrapper, StyledPopup, PopupFlag, PopupName, PopupCases, PopupRecovered, PopupDeaths } from './styled/TrackerMap';
 
-export const showDataOnMap = (data, casesType, currentTheme) => {
+export const showDataOnMap = (data, casesType, currentTheme, darkMode) => {
     console.log(currentTheme.elementBackgroundColor)
     return data.map(country => (
         <Circle
@@ -22,7 +22,7 @@ export const showDataOnMap = (data, casesType, currentTheme) => {
                 Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
             }
         >
-            <StyledPopup currentTheme={currentTheme}>
+            <StyledPopup currentTheme={currentTheme} className={darkMode ? `darkmode` : `lightmode`}>
                 <PopupFlag currentTheme={currentTheme} flag={country.countryInfo.flag} style={{ backgroundImage: `url(${country.countryInfo.flag})` }} />
                 <PopupName currentTheme={currentTheme}>
                     {country.country}
@@ -70,7 +70,7 @@ function TrackerMap({ darkMode, countries, casesType, center, zoom }) {
                 <MyTileLayer
                     darkMode={darkMode}
                 />
-                {showDataOnMap(countries, casesType, currentTheme)}
+                {showDataOnMap(countries, casesType, currentTheme, darkMode)}
             </MapContainer>
         </MapWrapper>
     )

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-import { MenuItem } from '@material-ui/core';
 import { ThemeSwitch } from './atoms/ThemeSwitch.js'
-import { HeaderWrapper, AppTitle, SelectWrapper, ThemeSwitchWrapper, StyledSelect, ControlsWrapper, StyledIcon } from './styled/Header';
+import { HeaderWrapper, AppTitle, SelectWrapper, ThemeSwitchWrapper, StyledSelect, StyledMenuItem, ControlsWrapper, StyledIcon } from './styled/Header';
 import { faMoon } from '@fortawesome/free-solid-svg-icons'
 
 function Header({ countries, onCountryChange, country, darkMode, setDarkMode }) {
@@ -21,14 +20,14 @@ function Header({ countries, onCountryChange, country, darkMode, setDarkMode }) 
                         onChange={onCountryChange}
                         darkMode={darkMode}
                     >
-                        <MenuItem key="worldwide" value="worldwide">
+                        <StyledMenuItem currentTheme={currentTheme} key={0} value="worldwide">
                             Worldwide
-                        </MenuItem>
+                        </StyledMenuItem>
                         {/* Loop through countries */}
-                        {countries.map(country => (
-                            <MenuItem key={country.name} value={country.value}>
+                        {countries.map((country, index) => (
+                            <StyledMenuItem currentTheme={currentTheme} key={index+1} value={country.value}>
                                 {country.name}
-                            </MenuItem>
+                            </StyledMenuItem>
                         ))}
                     </StyledSelect>
                 </SelectWrapper>

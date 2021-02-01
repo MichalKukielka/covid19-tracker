@@ -46,13 +46,16 @@ export const ThemeSwitchWrapper = styled.div`
 
 export const StyledSelect = styled(Select)`
     color: ${props => props.currentTheme.primaryTextColor} !important;
-    background-color: ${props => props.currentTheme.element} !important;
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
     box-sizing: border-box;
     border: 1px solid ${props => props.currentTheme.primaryTextColor}30 !important;
 
 `;
 
 export const StyledMenuItem = styled(MenuItem)`
+    color: ${props => props.currentTheme.primaryTextColor} !important;
+    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+    border-bottom: 1px solid ${props => props.currentTheme.primaryTextColor}10 !important;
 
 `;
 
