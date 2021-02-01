@@ -1,35 +1,15 @@
 import React, { useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext'
+import { ThemeContext } from '../context/ThemeContext';
+import { casesTypeColors } from '../utils/theme';
 import L from "leaflet";
 import { MapContainer, Circle, useMap } from 'react-leaflet';
 import numeral from 'numeral';
 
 import { MapWrapper, StyledPopup, PopupFlag, PopupName, PopupCases, PopupRecovered, PopupDeaths } from './styled/TrackerMap';
 
-const casesTypeColors = {
-    cases: {
-        hex: "#E984A2",
-        rgb: "rgb(233, 132, 162)",
-        half_op: "rgba(233, 132, 162, 0.5)",
-        multiplier: 200,
-    },
-    recovered: {
-        hex: "#B9CC95",
-        rgb: "rgb(185, 204, 149)",
-        half_op: "rgba(185, 204, 149, 0.5)",
-        multiplier: 300,
-    },
-    deaths: {
-        hex: "#A2DCEE",
-        rgb: "rgb(162, 220, 238)",
-        half_op: "rgba(162, 220, 238, 0.5)",
-        multiplier: 1000,
-    },
-};
-
-
-export const showDataOnMap = (data, casesType, currentTheme) =>
-    data.map(country => (
+export const showDataOnMap = (data, casesType, currentTheme) => {
+    console.log(currentTheme.elementBackgroundColor)
+    return data.map(country => (
         <Circle
             key={country.country}
             pathOptions={{
@@ -59,6 +39,7 @@ export const showDataOnMap = (data, casesType, currentTheme) =>
             </StyledPopup>
         </Circle>
     ))
+}
 
 function ChangeView({ center, zoom }) {
     const map = useMap();

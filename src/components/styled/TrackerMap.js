@@ -41,24 +41,26 @@ export const PopupName = styled.div`
 export const PopupCases = styled.div`
     font-size: 12px;
     margin-top: 5px;
-    background-color: #E984A255;
+    background-color: #E984A255 !important;
     padding: 0.15rem;
 `;
 
 export const PopupRecovered = styled.div`
     font-size: 12px;
     margin-top: 5px;
-    background-color: #B9CC9555;
+    background-color: #B9CC9555 !important;
     padding: 0.15rem;
 `;
 
 export const PopupDeaths = styled.div`
     font-size: 12px;
     margin-top: 5px;
-    background-color: #A2DCEE55;
+    background-color: #A2DCEE55 !important;
     padding: 0.15rem;
 `;
 
 export const StyledPopup = styled(Popup)`
-    background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+    & > .leaflet-popup-content-wrapper {
+        background-color: ${props => props.currentTheme.elementBackgroundColor} !important;
+    }
 `;

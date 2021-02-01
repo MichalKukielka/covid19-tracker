@@ -1,73 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import { ThemeContext } from '../context/ThemeContext'
+import { chartOptions } from '../utils/utils';
+import { casesTypeColors } from '../utils/theme';
 import { ChartWrapper, ChardTitle } from './styled/LineChart';
 import { Line } from "react-chartjs-2";
-import numeral from "numeral";
-
-const casesTypeColors = {
-  cases: {
-    hex: "#E984A2",
-    rgb: "rgb(233, 132, 162)",
-    half_op: "rgba(233, 132, 162, 0.5)",
-    multiplier: 200,
-  },
-  recovered: {
-    hex: "#B9CC95",
-    rgb: "rgb(185, 204, 149)",
-    half_op: "rgba(185, 204, 149, 0.5)",
-    multiplier: 300,
-  },
-  deaths: {
-    hex: "#A2DCEE",
-    rgb: "rgb(162, 220, 238)",
-    half_op: "rgba(162, 220, 238, 0.5)",
-    multiplier: 1000,
-  },
-};
-
-const options = {
-  legend: {
-    display: false,
-  },
-  elements: {
-    point: {
-      radius: 0,
-    },
-  },
-  maintainAspectRatio: false,
-  tooltips: {
-    mode: "index",
-    intersect: false,
-    callbacks: {
-      label: function (tooltipItem, data) {
-        return numeral(tooltipItem.value).format("+0,0");
-      },
-    },
-  },
-  scales: {
-    xAxes: [
-      {
-        type: "time",
-        time: {
-          parser: "MM/DD/YY",
-          tooltipFormat: "ll",
-        },
-      },
-    ],
-    yAxes: [
-      {
-        gridLines: {
-          display: false,
-        },
-        ticks: {
-          callback: function (value, index, values) {
-            return numeral(value).format("0a");
-          },
-        },
-      },
-    ],
-  },
-};
 
 const buildChartData = (data, casesType) => {
   let chartData = [];
@@ -120,7 +56,7 @@ function LineGraph({ casesType }) {
                 },
               ],
             }}
-            options={options}
+            options={chartOptions}
           />
         )}
       </ChartWrapper>
