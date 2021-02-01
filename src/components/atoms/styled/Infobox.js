@@ -14,7 +14,7 @@ export const StyledInfobox = styled(Card)`
     `}
 
     ${(props) => props.active && props.type === 'cases' && `
-        border-top: 5px solid #cc1034;
+        border-top: 5px solid #E984A2;
     `}
 
     ${(props) => props.active && props.type === 'recovered' && `
@@ -61,7 +61,7 @@ export const AmountHeader = styled.h2`
     margin-bottom: 0.5rem;
 
     ${(props) => props.type === 'cases' && `
-        color: #cc1034;
+        color: #E984A2;
     `}
 
     ${(props) => props.type === 'recovered' && `
